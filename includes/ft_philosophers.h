@@ -56,7 +56,7 @@ typedef struct s_philo
 	int				thread_id;
 	t_state			state;
 	unsigned long	meals;
-	pthread_t		*tid;
+	pthread_t		tid;
 }			t_philo;
 
 typedef struct s_args

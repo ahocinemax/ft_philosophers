@@ -47,7 +47,7 @@ static void	init_philo(t_philo *philo)
 		philo->left_fork = &(*forks)[philo->thread_id - 1];
 }
 
-static void	*spawn_philo(void *arg)
+static void	*create_philo(void *arg)
 {
 	t_philo	*philo;
 
@@ -67,9 +67,9 @@ static void	ft_play(t_philo *philos)
 	while (i < args->nb_philo)
 	{
 		philos[i].thread_id = i;
-		if (pthread_create(philos[i].tid, NULL, spawn_philo, &(philos[i])))
+		if (pthread_create(&(philos + i)->tid, NULL, create_philo, \
+		(philos + i)))
 			break ;
-		printf("Hello\n");
 		i++;
 	}
 	if (i != args->nb_philo)
@@ -78,7 +78,7 @@ static void	ft_play(t_philo *philos)
 		args->dead = 1;
 	}
 	while (i--)
-		pthread_join(*philos[i].tid, NULL);
+		pthread_join(philos[i].tid, NULL);
 }
 
 void	ft_play_rules(void)
