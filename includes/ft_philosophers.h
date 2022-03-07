@@ -17,11 +17,18 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define _STD_OUT	1
 # define _STD_ERR	2
 
-typedef enum e_input_error
+# define NO_PHILO	1
+# define NO_MEAL	2
+# define THREAD_ERR	3
+# define HEADER		4
+# define FOOTER		5
+
+typedef enum	e_input_error
 {
 	argc_incorrect,
 	meals_too_long,
@@ -31,9 +38,53 @@ typedef enum e_input_error
 	empty_arg
 }			t_input_error;
 
-void	ft_check_arg(int argc, char **argv);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
-int		ft_isdigit(int c);
+typedef enum	e_state
+{
+	thinking,
+	eating,
+	taking_fork,
+	sleeping,
+	dead,
+	undefined,
+}			t_state;
+
+typedef struct s_philo
+{
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+	unsigned long	last_meal;
+	int				index;
+	t_state			state;
+	unsigned long	meals;
+	pthread_t		*tid;
+}			t_philo;
+
+
+typedef struct s_args
+{
+	unsigned long	nb_philo;
+	unsigned long	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
+	unsigned long	max_meals;
+	unsigned long	satisfied;
+	int				dead;
+	pthread_mutex_t	*prompt;
+}			t_args;
+
+void			ft_init_args(int argc, char **argv);
+void			ft_check_arg(int argc, char **argv);
+void			ft_putstr_fd(char *s, int fd);
+void			ft_display_message(int code);
+int				ft_atoi(const char *nb);
+void			ft_init_time_base(void);
+void			ft_destroy_forks(void);
+void			ft_destroy_args(void);
+pthread_mutex_t	**ft_get_forks(void);
+void			ft_init_forks(void);
+void			ft_play_rules(void);
+t_args			*ft_get_args(void);
+unsigned long	ft_get_time(void);
+int				ft_isdigit(int c);
 
 #endif

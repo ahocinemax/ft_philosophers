@@ -12,6 +12,26 @@
 
 #include "../includes/ft_philosophers.h"
 
+void	ft_display_message(int code)
+{
+	if (code == NO_MEAL)
+		ft_putstr_fd("Pas de repas pour cette fois. Repassez plus tard.\n", \
+		_STD_OUT);
+	else if (code == NO_PHILO)
+		ft_putstr_fd("Personne à l'horizon. Repassez plus tard.\n", _STD_OUT);
+	else if (code == THREAD_ERR)
+		ft_putstr_fd("Initialisation des threads echouee. Reessayez.\n", \
+		_STD_OUT);
+	else if (code == HEADER)
+		ft_putstr_fd("\
+|-------------------------------------|\n\
+|    ms    |  id  |                   |\n\
+|-------------------------------------|\n", _STD_OUT);
+	else if (code == FOOTER)
+		ft_putstr_fd("\
+|-------------------------------------|\n", _STD_OUT);
+}
+
 static void	ft_display_error(t_input_error error)
 {
 	if (error == argc_incorrect)
@@ -25,7 +45,13 @@ static void	ft_display_error(t_input_error error)
 Seuls les entiers positifs sont acceptes. Pas de signe non plus.\n", _STD_ERR);
 	else if (error == phil_too_long)
 		ft_putstr_fd("Erreur : Choissisez un nombre valide \
-de philosophes [0 - 999]\n", 2);
+de philosophes [0 - 999]\n", _STD_ERR);
+	else if (error == meals_too_long)
+		ft_putstr_fd("Erreur : NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT \
+doit etre entre [0 - 99]\n", _STD_ERR);
+	else
+		ft_putstr_fd("Erreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
+doivent etre entre [0 - 9999]\n", _STD_ERR);
 	exit(EXIT_FAILURE);
 }
 
@@ -42,20 +68,16 @@ void	ft_check_arg(int argc, char **argv)
 		j = 0;
 		if (i != 5 && !argv[i][0])
 			ft_display_error(empty_arg);
-		printf("arg %d = [%s]\n", i, argv[i]);
 		while (argv[i][j])
 		{
-			if (i == 1 && j > 2)
-				ft_display_error(phil_too_long);
-			if (j > 3)
-			{
-				if (i == 5)
-					ft_display_error(meals_too_long);
-				else
-					ft_display_error(time_too_long);
-			}
 			if (!ft_isdigit(argv[i][j]))
 				ft_display_error(non_numerical);
+			if (i == 1 && j > 2)
+				ft_display_error(phil_too_long);
+			if (i == 5 && j > 2)
+				ft_display_error(meals_too_long);
+			if (j > 3)
+				ft_display_error(time_too_long);
 			j++;
 		}
 		i++;
