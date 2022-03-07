@@ -18,15 +18,15 @@ static void	start_routine(t_philo *philo)
 	t_args		*arg;
 
 	arg = ft_get_args();
-	pthread_create(&tid, NULL, &death_timer, philo);
+	pthread_create(&tid, NULL, &ft_death_timer, philo);
 	pthread_detach(tid);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
-		take_fork(philo);
-		eat(philo);
-		drop_fork(philo);
+		ft_take_fork(philo);
+		ft_eat(philo);
+		ft_drop_fork(philo);
 		ft_sleep(philo);
-		think(philo);
+		ft_think(philo);
 	}
 }
 
@@ -47,13 +47,14 @@ static void	init_philo(t_philo *philo)
 		philo->left_fork = &(*forks)[philo->index - 1];
 }
 
-static void	spawn_philo(void *arg)
+static void	*spawn_philo(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	init_philo(philo);
 	start_routine(philo);
+	return (NULL);
 }
 
 static void	ft_play(t_philo *philos)
@@ -66,7 +67,7 @@ static void	ft_play(t_philo *philos)
 	while (i < args->nb_philo)
 	{
 		philos[i].index = i;
-		if (pthread_create(&philos[i].tid, NULL, spawn_philo, &philos[i]))
+		if (pthread_create(philos[i].tid, NULL, spawn_philo, &philos[i]))
 			break;
 		i++;
 	}
@@ -76,7 +77,7 @@ static void	ft_play(t_philo *philos)
 		args->dead = 1;
 	}
 	while (i--)
-		pthread_join(philos[i].tid, NULL);
+		pthread_join(*philos[i].tid, NULL);
 }
 
 void	ft_play_rules(void)

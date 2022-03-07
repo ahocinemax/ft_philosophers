@@ -76,8 +76,14 @@ void			ft_init_args(int argc, char **argv);
 void			ft_check_arg(int argc, char **argv);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_display_message(int code);
-int				ft_atoi(const char *nb);
+void			ft_take_fork(t_philo *philo);
+void			ft_drop_fork(t_philo *philo);
+void			*ft_death_timer(void *ptr);
+void			ft_think(t_philo *philo);
+void			ft_sleep(t_philo *philo);
 void			ft_init_time_base(void);
+int				ft_atoi(const char *nb);
+void			ft_eat(t_philo *philo);
 void			ft_destroy_forks(void);
 void			ft_destroy_args(void);
 pthread_mutex_t	**ft_get_forks(void);
@@ -86,5 +92,6 @@ void			ft_play_rules(void);
 t_args			*ft_get_args(void);
 unsigned long	ft_get_time(void);
 int				ft_isdigit(int c);
+
 
 #endif
