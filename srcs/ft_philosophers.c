@@ -15,6 +15,11 @@
 int	main(int argc, char *argv[])
 {
 	ft_check_arg(argc, argv);
-	printf("OK\n");
+	ft_init_args(argc, argv);
+	ft_init_forks();
+	ft_init_time_base();
+	ft_play_rules();
+	ft_destroy_forks();
+	ft_destroy_args();
 	return (0);
 }

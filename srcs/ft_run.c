@@ -18,7 +18,7 @@ static void	start_routine(t_philo *philo)
 	t_args		*arg;
 
 	arg = ft_get_args();
-	pthread_create(&tid, NULL, &ft_death_timer, philo);
+	pthread_create(&tid, NULL, &ft_dead_timer, philo);
 	pthread_detach(tid);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
@@ -40,11 +40,11 @@ static void	init_philo(t_philo *philo)
 	philo->last_meal = 0;
 	philo->state = thinking;
 	forks = ft_get_forks();
-	philo->right_fork = &(*forks)[philo->index];
-	if (!philo->index)
+	philo->right_fork = &(*forks)[philo->thread_id];
+	if (!philo->thread_id)
 		philo->left_fork = &(*forks)[args->nb_philo - 1];
 	else
-		philo->left_fork = &(*forks)[philo->index - 1];
+		philo->left_fork = &(*forks)[philo->thread_id - 1];
 }
 
 static void	*spawn_philo(void *arg)
@@ -66,9 +66,10 @@ static void	ft_play(t_philo *philos)
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		philos[i].index = i;
-		if (pthread_create(philos[i].tid, NULL, spawn_philo, &philos[i]))
+		philos[i].thread_id = i;
+		if (pthread_create(philos[i].tid, NULL, spawn_philo, &(philos[i])))
 			break ;
+		printf("Hello\n");
 		i++;
 	}
 	if (i != args->nb_philo)
@@ -91,6 +92,7 @@ void	ft_play_rules(void)
 		return ;
 	ft_display_message(HEADER);
 	ft_play(philos);
+	printf("Hello\n");
 	free(philos);
 	ft_display_message(FOOTER);
 }

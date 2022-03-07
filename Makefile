@@ -9,7 +9,10 @@ SRC_FILE = ft_check.c ft_dead.c ft_fork.c ft_parse.c \
 			ft_philosophers.c ft_routine.c ft_run.c \
 			ft_time.c ft_utils.c
 
-OBJ = *.obj
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
+OBJ = ft_check.o ft_dead.o ft_fork.o ft_parse.o \
+	ft_philosophers.o ft_routine.o ft_run.o \
+	ft_time.o ft_utils.o
 
 HEADER = $(addprefix $(HEAD_DIR), $(HEAD_FILE))
 HEAD_FILE = ft_philosophers.h
@@ -38,7 +41,7 @@ $(OBJ): $(SRC)
 
 clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
-	@rm -f $(OBJ_DIR)$(OBJ)
+	@rm -f $(OBJS)
 
 fclean: clean
 	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME)..." $(NONE)

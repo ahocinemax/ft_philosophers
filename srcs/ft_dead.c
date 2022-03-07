@@ -12,7 +12,7 @@
 
 #include "../includes/ft_philosophers.h"
 
-void	*death_timer(void *ptr)
+void	*ft_dead_timer(void *ptr)
 {
 	unsigned long	time;
 	t_philo			*philo;

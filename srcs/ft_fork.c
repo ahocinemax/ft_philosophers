@@ -20,7 +20,7 @@ pthread_mutex_t	**ft_get_forks(void)
 	return (&forks);
 }
 
-void	ft_init_fork(void)
+void	ft_init_forks(void)
 {
 	pthread_mutex_t	**forks;
 	t_args			*args;

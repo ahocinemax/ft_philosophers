@@ -53,7 +53,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	unsigned long	last_meal;
-	int				index;
+	int				thread_id;
 	t_state			state;
 	unsigned long	meals;
 	pthread_t		*tid;
@@ -77,7 +77,7 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_display_message(int code);
 void			ft_take_fork(t_philo *philo);
 void			ft_drop_fork(t_philo *philo);
-void			*ft_death_timer(void *ptr);
+void			*ft_dead_timer(void *ptr);
 void			ft_think(t_philo *philo);
 void			ft_sleep(t_philo *philo);
 void			ft_init_time_base(void);

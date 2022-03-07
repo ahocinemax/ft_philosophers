@@ -36,7 +36,7 @@ void	ft_take_fork(t_philo *philo)
 	unsigned long	time;
 
 	args = ft_get_args();
-	if (philo->index % 2)
+	if (philo->thread_id % 2)
 		usleep(100);
 	pthread_mutex_lock(philo->left_fork);
 	philo->state = taking_fork;
