@@ -68,7 +68,7 @@ static void	ft_play(t_philo *philos)
 	{
 		philos[i].index = i;
 		if (pthread_create(philos[i].tid, NULL, spawn_philo, &philos[i]))
-			break;
+			break ;
 		i++;
 	}
 	if (i != args->nb_philo)

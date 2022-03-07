@@ -28,7 +28,7 @@
 # define HEADER		4
 # define FOOTER		5
 
-typedef enum	e_input_error
+typedef enum e_input_error
 {
 	argc_incorrect,
 	meals_too_long,
@@ -38,7 +38,7 @@ typedef enum	e_input_error
 	empty_arg
 }			t_input_error;
 
-typedef enum	e_state
+typedef enum e_state
 {
 	thinking,
 	eating,
@@ -58,7 +58,6 @@ typedef struct s_philo
 	unsigned long	meals;
 	pthread_t		*tid;
 }			t_philo;
-
 
 typedef struct s_args
 {
@@ -92,6 +91,5 @@ void			ft_play_rules(void);
 t_args			*ft_get_args(void);
 unsigned long	ft_get_time(void);
 int				ft_isdigit(int c);
-
 
 #endif
