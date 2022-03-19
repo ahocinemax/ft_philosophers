@@ -14,16 +14,15 @@
 
 static unsigned long	*ft_get_time_base(void)
 {
-	static unsigned long	time;
+	static unsigned long	time = 0;
 
-	time = 0;
 	return (&time);
 }
 
 void	ft_init_time_base(void)
 {
-	unsigned long	*base;
 	struct timeval	time;
+	unsigned long	*base;
 
 	gettimeofday(&time, NULL);
 	base = ft_get_time_base();

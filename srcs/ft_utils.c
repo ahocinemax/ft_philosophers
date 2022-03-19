@@ -53,3 +53,28 @@ void	ft_putstr_fd(char *s, int fd)
 		while (*s)
 			ft_putchar_fd(*s++, fd);
 }
+
+void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
+{
+	t_args				*args;
+	static const char	*str[] =
+	{
+		"| %8ld    %03ld   is thinking.      |\n",
+		"| %8ld    %03ld   has taken a fork. |\n",
+		"| %8ld    %03ld   is eating.        |\n",
+		"| %8ld    %03ld   is sleeping.      |\n",
+		"| %8ld    %03ld   died.             |\n",
+		NULL
+	};
+
+	args = ft_get_args();
+	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
+		return ;
+	if (time > 99999999)
+	{
+		args->dead++;
+		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
+		return ;
+	}
+	printf(str[stt], time, tid);
+}

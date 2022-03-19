@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_run.c                                     :+:      :+:    :+:   */
+/*   ft_run.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -36,9 +36,9 @@ static void	init_philo(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	philo->meals = 0;
-	philo->last_meal = 0;
 	philo->state = thinking;
+	philo->last_meal = 0;
+	philo->meals = 0;
 	forks = ft_get_forks();
 	philo->right_fork = &(*forks)[philo->thread_id];
 	if (!philo->thread_id)
@@ -67,8 +67,7 @@ static void	ft_play(t_philo *philos)
 	while (i < args->nb_philo)
 	{
 		philos[i].thread_id = i;
-		if (pthread_create(&(philos + i)->tid, NULL, create_philo, \
-		(philos + i)))
+		if (pthread_create(&philos[i].tid, NULL, create_philo, &philos[i]))
 			break ;
 		i++;
 	}
@@ -77,7 +76,7 @@ static void	ft_play(t_philo *philos)
 		ft_display_message(THREAD_ERR);
 		args->dead = 1;
 	}
-	while (i--)
+	while (--i)
 		pthread_join(philos[i].tid, NULL);
 }
 
@@ -92,7 +91,6 @@ void	ft_play_rules(void)
 		return ;
 	ft_display_message(HEADER);
 	ft_play(philos);
-	printf("Hello\n");
 	free(philos);
 	ft_display_message(FOOTER);
 }

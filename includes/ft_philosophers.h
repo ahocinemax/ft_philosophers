@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define _STD_OUT	1
+# define _STD_OUT	2
 # define _STD_ERR	2
 
 # define NO_PHILO	1
@@ -41,8 +41,8 @@ typedef enum e_input_error
 typedef enum e_state
 {
 	thinking,
-	eating,
 	taking_fork,
+	eating,
 	sleeping,
 	dead,
 	undefined,
@@ -71,6 +71,8 @@ typedef struct s_args
 	pthread_mutex_t	*prompt;
 }			t_args;
 
+void			ft_display_routine(t_state state, unsigned long thread_id, \
+					unsigned long time);
 void			ft_init_args(int argc, char **argv);
 void			ft_check_arg(int argc, char **argv);
 void			ft_putstr_fd(char *s, int fd);

@@ -24,12 +24,12 @@ void	ft_display_message(int code)
 		_STD_OUT);
 	else if (code == HEADER)
 		ft_putstr_fd("\
-|-------------------------------------|\n\
+._____________________________________.\n\
 |    ms    |  id  |                   |\n\
-|-------------------------------------|\n", _STD_OUT);
+|_____________________________________|\n", _STD_OUT);
 	else if (code == FOOTER)
 		ft_putstr_fd("\
-|-------------------------------------|\n", _STD_OUT);
+|_____________________________________|\n", _STD_OUT);
 }
 
 static void	ft_display_error(t_input_error error)

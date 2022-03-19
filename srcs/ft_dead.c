@@ -31,7 +31,7 @@ void	*ft_dead_timer(void *ptr)
 		if (time - philo->last_meal >= arg->time_to_die)
 		{
 			philo->state = dead;
-			ft_putstr_fd("STATEMENT\n", _STD_OUT);
+			ft_display_routine(dead, philo->thread_id, time);
 			arg->dead++;
 		}
 	}
