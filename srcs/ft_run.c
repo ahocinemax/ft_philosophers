@@ -78,6 +78,7 @@ static void	ft_play(t_philo *philos)
 	}
 	while (--i)
 		pthread_join(philos[i].tid, NULL);
+	pthread_join(philos[0].tid, NULL);
 }
 
 void	ft_play_rules(void)

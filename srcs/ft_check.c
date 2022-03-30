@@ -16,13 +16,15 @@ void	ft_display_message(int code)
 {
 	if (code == NO_MEAL)
 		ft_putstr_fd("Pas de repas pour cette fois. Repassez plus tard.\n", \
-		_STD_OUT);
+		_STD_ERR);
 	else if (code == NO_PHILO)
-		ft_putstr_fd("Personne à l'horizon. Repassez plus tard.\n", _STD_OUT);
+		ft_putstr_fd("Personne à l'horizon. Repassez plus tard.\n", _STD_ERR);
 	else if (code == THREAD_ERR)
 		ft_putstr_fd("Initialisation des threads echouee. Reessayez.\n", \
-		_STD_OUT);
-	else if (code == HEADER)
+		_STD_ERR);
+	if (code == NO_MEAL || code == NO_PHILO || code == THREAD_ERR)
+		exit(EXIT_FAILURE);
+	if (code == HEADER)
 		ft_putstr_fd("\
 ._____________________________________.\n\
 |    ms    |  id  |                   |\n\
