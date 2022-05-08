@@ -57,7 +57,7 @@ void	ft_putstr_fd(char *s, int fd)
 void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 {
 	t_args				*args;
-	static const char	*str[] =
+	static const char	*str[] = \
 	{
 		"| %8ld    %03ld   is thinking.      |\n",
 		"| %8ld    %03ld   has taken a fork. |\n",
