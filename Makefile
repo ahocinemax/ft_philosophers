@@ -32,6 +32,8 @@ $(NAME): $(OBJ)
 	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
 	@gcc $(FLAGS) $(OBJ) $(INCLUDE) -o $(NAME)
 	@echo $(CURSIVE)$(GRAY) "     - Moving object files..." $(NONE)
+	@rm -rf $(OBJ_DIR)
+	@mkdir $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
 	@echo $(YELLOW)"- Project compiled -"$(NONE)
 
@@ -41,7 +43,7 @@ $(OBJ): $(SRC)
 
 clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
-	@rm -f $(OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME)..." $(NONE)
