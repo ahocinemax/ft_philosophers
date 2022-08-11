@@ -31,13 +31,13 @@ void	ft_init_args(int argc, char *argv[])
 		ft_display_message(NO_PHILO);
 	args->time_to_die = ft_atoi(argv[2]);
 	if (!args->time_to_die)
-		ft_display_message(NO_MEAL);
+		ft_display_message(NO_TIME);
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->max_meals = 0;
 	if (argc == 6)
 	{
-		if (ft_atoi(argv[5]))
+		if (ft_atoi(argv[5]) )
 			args->max_meals = ft_atoi(argv[5]);
 		else
 			ft_display_message(NO_MEAL);

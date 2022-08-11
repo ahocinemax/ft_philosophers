@@ -22,7 +22,11 @@ void	ft_display_message(int code)
 	else if (code == THREAD_ERR)
 		ft_putstr_fd("Initialisation des threads echouee. Reessayez.\n", \
 		_STD_ERR);
-	if (code == NO_MEAL || code == NO_PHILO || code == THREAD_ERR)
+	else if (code == NO_TIME)
+		ft_putstr_fd("Meme pas commence que c'est deja fini... Il nous faut\
+ plus de temps !\n",	_STD_ERR);
+	if (code == NO_MEAL || code == NO_PHILO || code == THREAD_ERR || \
+		code == NO_TIME)
 		exit(EXIT_FAILURE);
 	if (code == HEADER)
 		ft_putstr_fd("\
@@ -51,6 +55,9 @@ de philosophes [0 - 999]\n", _STD_ERR);
 	else if (error == meals_too_long)
 		ft_putstr_fd("Erreur : NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT \
 doit etre entre [0 - 99]\n", _STD_ERR);
+	else if (error == time_too_long)
+		ft_putstr_fd("Reessayez avec des durees plus courtes.\n", _STD_ERR);
+
 	else
 		ft_putstr_fd("Erreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
 doivent etre entre [0 - 9999]\n", _STD_ERR);

@@ -27,6 +27,7 @@
 # define THREAD_ERR	3
 # define HEADER		4
 # define FOOTER		5
+# define NO_TIME	6
 
 typedef enum e_input_error
 {
