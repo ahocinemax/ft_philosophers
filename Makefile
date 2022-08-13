@@ -1,24 +1,42 @@
-NAME = philo
+#------------------------------------#
+#             COMPILATION            #
+#------------------------------------#
 
-HEAD_DIR = includes/
+NAME	= philo
+
+FLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=thread
+INCLUDE	= -I $(HEAD_DIR) -pthread
+CC		= gcc
+
+#------------------------------------#
+#               SOURCES              #
+#------------------------------------#
+
 SRC_DIR = srcs/
-OBJ_DIR = obj/
-
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILE))
 SRC_FILE = ft_check.c ft_dead.c ft_fork.c ft_args.c \
 			ft_philosophers.c ft_routine.c ft_run.c \
 			ft_time.c ft_utils.c
 
+#------------------------------------#
+#               OBJECTS              #
+#------------------------------------#
+
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
-OBJ = ft_check.o ft_dead.o ft_fork.o ft_args.o \
-	ft_philosophers.o ft_routine.o ft_run.o \
-	ft_time.o ft_utils.o
+OBJ_DIR = obj/
+OBJ = $(SRC_FILE:.c=.o)
+
+#------------------------------------#
+#              INCLUDES              #
+#------------------------------------#
 
 HEADER = $(addprefix $(HEAD_DIR), $(HEAD_FILE))
+HEAD_DIR = includes/
 HEAD_FILE = ft_philosophers.h
 
-FLAGS = -Wall -Wextra -Werror -g3
-INCLUDE = -I $(HEADER) -pthread
+#------------------------------------#
+#               COLORS               #
+#------------------------------------#
 
 NONE='\033[0m'
 GREEN='\033[32m'
@@ -26,24 +44,25 @@ YELLOW='\033[33m'
 GRAY='\033[2;37m'
 CURSIVE='\033[3m'
 
+#------------------------------------------------------------------------------#
+#                                   RULES                                      #
+#------------------------------------------------------------------------------#
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJS)
+	# @echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
 	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	@gcc $(FLAGS) $(OBJ) $(INCLUDE) -o $(NAME)
-	@echo $(CURSIVE)$(GRAY) "     - Moving object files..." $(NONE)
-	@rm -rf $(OBJ_DIR)
-	@mkdir $(OBJ_DIR)
-	@mv $(OBJ) $(OBJ_DIR)
+	$(CC) $(FLAGS) $(OBJS) $(INCLUDE) -I includes -o $(NAME)
 	@echo $(YELLOW)"- Project compiled -"$(NONE)
 
-$(OBJ): $(SRC)
-	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
-	@gcc $(FLAGS) -c $(SRCS)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER)
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME)..." $(NONE)

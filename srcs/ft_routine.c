@@ -22,8 +22,8 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_lock(args->prompt);
 	philo->state = eating;
 	philo->meals++;
+	philo->last_meal = time;
 	ft_display_routine(eating, philo->thread_id + 1, time);
-	(void)time;
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
 	pthread_mutex_unlock(args->prompt);

@@ -37,7 +37,7 @@ void	ft_init_args(int argc, char *argv[])
 	args->max_meals = 0;
 	if (argc == 6)
 	{
-		if (ft_atoi(argv[5]) )
+		if (ft_atoi(argv[5]))
 			args->max_meals = ft_atoi(argv[5]);
 		else
 			ft_display_message(NO_MEAL);
