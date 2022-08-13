@@ -25,13 +25,13 @@ void	*ft_dead_timer(void *ptr)
 	{
 		pthread_mutex_unlock(arg->display);
 		time = ft_get_time();
-		usleep((arg->time_to_die - time - philo->last_meal) * 1000);
+		usleep((arg->time_to_die - philo->last_meal) * 1000);
 		time = ft_get_time();
 		pthread_mutex_trylock(arg->display);
 		if (time - philo->last_meal >= arg->time_to_die)
 		{
 			philo->state = dead;
-			ft_display_routine(dead, philo->thread_id, time);
+			ft_display_routine(dead, philo->thread_id + 1, time);
 			arg->dead++;
 		}
 	}
