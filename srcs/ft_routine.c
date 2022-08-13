@@ -19,14 +19,14 @@ void	ft_eat(t_philo *philo)
 
 	args = ft_get_args();
 	time = ft_get_time();
-	pthread_mutex_lock(args->prompt);
+	pthread_mutex_lock(args->display);
 	philo->state = eating;
 	philo->meals++;
 	philo->last_meal = time;
 	ft_display_routine(eating, philo->thread_id + 1, time);
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
-	pthread_mutex_unlock(args->prompt);
+	pthread_mutex_unlock(args->display);
 	usleep(args->time_to_eat * 1000);
 }
 
@@ -66,11 +66,11 @@ void	ft_sleep(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->prompt);
+	pthread_mutex_lock(args->display);
 	time = ft_get_time();
 	philo->state = sleeping;
 	ft_display_routine(sleeping, philo->thread_id + 1, time);
-	pthread_mutex_unlock(args->prompt);
+	pthread_mutex_unlock(args->display);
 	usleep(args->time_to_sleep * 1000);
 }
 
@@ -80,9 +80,9 @@ void	ft_think(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->prompt);
+	pthread_mutex_lock(args->display);
 	time = ft_get_time();
 	ft_display_routine(thinking, philo->thread_id + 1, time);
 	philo->state = thinking;
-	pthread_mutex_unlock(args->prompt);
+	pthread_mutex_unlock(args->display);
 }

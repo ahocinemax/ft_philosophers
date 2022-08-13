@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_args.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -42,10 +42,10 @@ void	ft_init_args(int argc, char *argv[])
 		else
 			ft_display_message(NO_MEAL);
 	}
-	args->prompt = malloc(sizeof(pthread_mutex_t));
-	if (!args->prompt)
+	args->display = malloc(sizeof(pthread_mutex_t));
+	if (!args->display)
 		exit(EXIT_FAILURE);
-	pthread_mutex_init(args->prompt, NULL);
+	pthread_mutex_init(args->display, NULL);
 }
 
 void	ft_destroy_args(void)
@@ -53,6 +53,6 @@ void	ft_destroy_args(void)
 	t_args	*arg;
 
 	arg = ft_get_args();
-	pthread_mutex_destroy(arg->prompt);
-	free(arg->prompt);
+	pthread_mutex_destroy(arg->display);
+	free(arg->display);
 }

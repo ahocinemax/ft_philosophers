@@ -69,7 +69,7 @@ typedef struct s_args
 	unsigned long	max_meals;
 	unsigned long	satisfied;
 	int				dead;
-	pthread_mutex_t	*prompt;
+	pthread_mutex_t	*display;
 }			t_args;
 
 void			ft_display_routine(t_state state, unsigned long thread_id, \

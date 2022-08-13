@@ -20,14 +20,14 @@ void	*ft_dead_timer(void *ptr)
 
 	philo = (t_philo *)ptr;
 	arg = ft_get_args();
-	pthread_mutex_lock(arg->prompt);
+	pthread_mutex_lock(arg->display);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied != arg->nb_philo))
 	{
-		pthread_mutex_unlock(arg->prompt);
+		pthread_mutex_unlock(arg->display);
 		time = ft_get_time();
 		usleep((arg->time_to_die - time - philo->last_meal) * 1000);
 		time = ft_get_time();
-		pthread_mutex_lock(arg->prompt);
+		pthread_mutex_trylock(arg->display);
 		if (time - philo->last_meal >= arg->time_to_die)
 		{
 			philo->state = dead;
@@ -35,6 +35,6 @@ void	*ft_dead_timer(void *ptr)
 			arg->dead++;
 		}
 	}
-	pthread_mutex_unlock(arg->prompt);
+	pthread_mutex_unlock(arg->display);
 	return (NULL);
 }
