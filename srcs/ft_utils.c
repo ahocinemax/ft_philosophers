@@ -59,16 +59,16 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 	t_args				*args;
 	static const char	*str[] = \
 	{
-		"| %8ld    %03ld   is thinking.      |\n",
-		"| %8ld    %03ld   has taken a fork. |\n",
-		"| %8ld    %03ld   is eating.        |\n",
-		"| %8ld    %03ld   is sleeping.      |\n",
-		"| %8ld    %03ld   died.             |\n",
+		"| %8ld    %03ld   \e[33mis thinking.      \e[0m|\n",
+		"| %8ld    %03ld   \e[34mhas taken a fork. \e[0m|\n",
+		"| %8ld    %03ld   \e[32mis eating.        \e[0m|\n",
+		"| %8ld    %03ld   \e[35mis sleeping.      \e[0m|\n",
+		"| %8ld    %03ld   \e[31mdied.             \e[0m|\n",
 		NULL
 	};
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->display);
+	// pthread_mutex_lock(args->display);
 	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
 		return ;
 	if (time > 99999999)
@@ -77,6 +77,6 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
 		return ;
 	}
-	pthread_mutex_unlock(args->display);
+	// pthread_mutex_unlock(args->display);
 	printf(str[stt], time, tid);
 }
