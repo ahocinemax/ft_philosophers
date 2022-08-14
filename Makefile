@@ -4,7 +4,7 @@
 
 NAME		= philo
 
-FLAGS		= -Wall -Wextra -Werror # -g3 -fsanitize=thread
+FLAGS		= -Wall -Wextra -Werror -g3 #-fsanitize=thread
 INCLUDE		= -I $(HEAD_DIR) -pthread
 CC			= gcc
 

@@ -17,15 +17,18 @@ void	*ft_dead_timer(void *ptr)
 	unsigned long	time;
 	t_philo			*philo;
 	t_args			*arg;
+	int				time_to_die;
 
 	philo = (t_philo *)ptr;
 	arg = ft_get_args();
 	pthread_mutex_lock(arg->display);
+	time_to_die = arg->time_to_die;
 	while (!arg->dead && (!arg->max_meals || arg->satisfied != arg->nb_philo))
 	{
 		pthread_mutex_unlock(arg->display);
+		// pthread_mutex_lock(philo->l)
 		time = ft_get_time();
-		usleep((arg->time_to_die - time - philo->last_meal) * 1000);
+		usleep((time_to_die - time - philo->last_meal) * 1000);
 		time = ft_get_time();
 		pthread_mutex_lock(arg->display);
 		if (time - philo->last_meal >= arg->time_to_die)
