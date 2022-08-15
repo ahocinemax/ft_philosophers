@@ -23,9 +23,13 @@ void	ft_eat(t_philo *philo)
 	tto_eat = args->time_to_eat;
 	philo->state = eating;
 	philo->meals++;
+<<<<<<< HEAD
 	philo->last_meal = time;
 	pthread_mutex_lock(args->display);
+=======
+>>>>>>> parent of f035007... A
 	ft_display_routine(eating, philo->thread_id + 1, time);
+	(void)time;
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
 	pthread_mutex_unlock(args->display);
