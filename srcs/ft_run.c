@@ -40,6 +40,7 @@ static void	init_philo(t_philo *philo)
 	philo->last_meal = 0;
 	philo->meals = 0;
 	forks = ft_get_forks();
+	// printf("Philo %d initialized.\n", philo->thread_id);
 	philo->right_fork = &(*forks)[philo->thread_id];
 	if (!philo->thread_id)
 		philo->left_fork = &(*forks)[args->nb_philo - 1];

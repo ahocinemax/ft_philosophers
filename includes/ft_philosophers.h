@@ -74,8 +74,8 @@ typedef struct s_args
 
 void			ft_display_routine(t_state state, unsigned long thread_id, \
 					unsigned long time);
+void			ft_display_error(t_input_error error);
 void			ft_init_args(int argc, char **argv);
-void			ft_check_arg(int argc, char **argv);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_display_message(int code);
 void			ft_take_fork(t_philo *philo);

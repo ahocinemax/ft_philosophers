@@ -35,10 +35,10 @@ void	ft_init_args(int argc, char *argv[])
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->max_meals = 0;
-	printf("nb_philo: %ld || tto_eat: %ld || tto_die: %ld || tto_sleep: %ld\n", args->nb_philo, args->time_to_eat, args->time_to_die, args->time_to_sleep);
+	// printf("nb_philo: %ld || tto_eat: %ld || tto_die: %ld || tto_sleep: %ld\n", args->nb_philo, args->time_to_eat, args->time_to_die, args->time_to_sleep);
 	if (argc == 6)
 	{
-		if (ft_atoi(argv[5]))
+		if (ft_atoi(argv[5]) )
 			args->max_meals = ft_atoi(argv[5]);
 		else
 			ft_display_message(NO_MEAL);

@@ -24,7 +24,7 @@ void	ft_display_message(int code)
 		_STD_ERR);
 	else if (code == NO_TIME)
 		ft_putstr_fd("Meme pas commence que c'est deja fini... Il nous faut\
- plus de temps !\n", _STD_ERR);
+ plus de temps !\n",	_STD_ERR);
 	if (code == NO_MEAL || code == NO_PHILO || code == THREAD_ERR || \
 		code == NO_TIME)
 		exit(EXIT_FAILURE);
@@ -38,7 +38,7 @@ void	ft_display_message(int code)
 |_____________________________________|\n", _STD_OUT);
 }
 
-static void	ft_display_error(t_input_error error)
+void	ft_display_error(t_input_error error)
 {
 	if (error == argc_incorrect)
 		ft_putstr_fd("Usage : \
@@ -57,37 +57,36 @@ de philosophes [0 - 999]\n", _STD_ERR);
 doit etre entre [0 - 99]\n", _STD_ERR);
 	else if (error == time_too_long)
 		ft_putstr_fd("Reessayez avec des durees plus courtes.\n", _STD_ERR);
+
 	else
 		ft_putstr_fd("Erreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
 doivent etre entre [0 - 9999]\n", _STD_ERR);
 	exit(EXIT_FAILURE);
 }
 
-void	ft_check_arg(int argc, char **argv)
+void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 {
-	int	i;
-	int	j;
-
-	if (argc != 5 && argc != 6)
-		ft_display_error(argc_incorrect);
-	i = 1;
-	while (i != argc)
+	t_args				*args;
+	static const char	*str[] = \
 	{
-		j = 0;
-		if (i != 5 && !argv[i][0])
-			ft_display_error(empty_arg);
-		while (argv[i][j])
-		{
-			if (!ft_isdigit(argv[i][j]))
-				ft_display_error(non_numerical);
-			if (i == 1 && j > 2)
-				ft_display_error(phil_too_long);
-			if (i == 5 && j > 2)
-				ft_display_error(meals_too_long);
-			if (j > 3)
-				ft_display_error(time_too_long);
-			j++;
-		}
-		i++;
+		"| %8ld    %03ld   \e[33mis thinking.      \e[0m|\n",
+		"| %8ld    %03ld   \e[34mhas taken a fork. \e[0m|\n",
+		"| %8ld    %03ld   \e[32mis eating.        \e[0m|\n",
+		"| %8ld    %03ld   \e[35mis sleeping.      \e[0m|\n",
+		"| %8ld    %03ld   \e[31mdied.             \e[0m|\n",
+		NULL
+	};
+
+	args = ft_get_args();
+	// pthread_mutex_lock(args->display);
+	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
+		return ;
+	if (time > 99999999)
+	{
+		args->dead++;
+		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
+		return ;
 	}
+	// pthread_mutex_unlock(args->display);
+	printf(str[stt], time, tid);
 }

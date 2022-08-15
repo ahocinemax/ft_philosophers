@@ -36,7 +36,8 @@ void	ft_init_forks(void)
 	}
 	i = -1;
 	while (++i < args->nb_philo)
-		pthread_mutex_init(&(*forks)[i], NULL);
+		if (pthread_mutex_init(&(*forks)[i], NULL))
+			return (ft_destroy_forks());
 }
 
 void	ft_destroy_forks(void)
@@ -48,7 +49,7 @@ void	ft_destroy_forks(void)
 	forks = ft_get_forks();
 	args = ft_get_args();
 	i = 0;
-	while (i < args->nb_philo)
+	while (i < args->nb_philo && forks[i])
 		pthread_mutex_destroy(&(*forks)[i++]);
 	free(*forks);
 }

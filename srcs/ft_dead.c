@@ -16,28 +16,26 @@ void	*ft_dead_timer(void *ptr)
 {
 	unsigned long	time;
 	t_philo			*philo;
-	t_args			*args;
-	unsigned int	tto_die;
+	t_args			*arg;
 
 	philo = (t_philo *)ptr;
-	args = ft_get_args();
-	tto_die = args->time_to_die;
-	pthread_mutex_lock(args->display);
-	while (!args->dead && (!args->max_meals || \
-		args->satisfied != args->nb_philo))
+	arg = ft_get_args();
+	pthread_mutex_lock(arg->display);
+	while (!arg->dead && (!arg->max_meals || arg->satisfied != arg->nb_philo))
 	{
-		pthread_mutex_unlock(args->display);
+		pthread_mutex_unlock(arg->display);
 		time = ft_get_time();
-		usleep((tto_die - time - philo->last_meal) * 1000);
+		// printf("tto_die: %ld, time: %ld, lastMeal: %ld\n", arg->time_to_die, time, philo->last_meal);
+		usleep((arg->time_to_die - time + philo->last_meal) * 1000);
 		time = ft_get_time();
-		pthread_mutex_lock(args->display);
-		if (time - philo->last_meal >= tto_die)
+		pthread_mutex_lock(arg->display);
+		if (time - philo->last_meal >= arg->time_to_die)
 		{
 			philo->state = dead;
-			ft_display_routine(dead, philo->thread_id + 1, time);
-			args->dead++;
+			ft_display_routine(dead, philo->thread_id, time);
+			arg->dead++;
 		}
 	}
-	pthread_mutex_unlock(args->display);
+	pthread_mutex_unlock(arg->display);
 	return (NULL);
 }
