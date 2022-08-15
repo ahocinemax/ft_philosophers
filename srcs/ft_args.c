@@ -35,7 +35,6 @@ void	ft_init_args(int argc, char *argv[])
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->max_meals = 0;
-	// printf("nb_philo: %ld || tto_eat: %ld || tto_die: %ld || tto_sleep: %ld\n", args->nb_philo, args->time_to_eat, args->time_to_die, args->time_to_sleep);
 	if (argc == 6)
 	{
 		if (ft_atoi(argv[5]) )
@@ -44,9 +43,13 @@ void	ft_init_args(int argc, char *argv[])
 			ft_display_message(NO_MEAL);
 	}
 	args->display = malloc(sizeof(pthread_mutex_t));
+	args->global_access = malloc(sizeof(pthread_mutex_t));
 	if (!args->display)
 		exit(EXIT_FAILURE);
-	pthread_mutex_init(args->display, NULL);
+	if (pthread_mutex_init(args->global_access, NULL))
+		return ;
+	if (pthread_mutex_init(args->display, NULL))
+		return ;
 }
 
 void	ft_destroy_args(void)

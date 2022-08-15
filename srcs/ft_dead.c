@@ -17,6 +17,7 @@ void	*ft_dead_timer(void *ptr)
 	unsigned long	time;
 	t_philo			*philo;
 	t_args			*arg;
+	unsigned int	lastMeal;
 
 	philo = (t_philo *)ptr;
 	arg = ft_get_args();
@@ -25,17 +26,23 @@ void	*ft_dead_timer(void *ptr)
 	{
 		pthread_mutex_unlock(arg->display);
 		time = ft_get_time();
-		// printf("tto_die: %ld, time: %ld, lastMeal: %ld\n", arg->time_to_die, time, philo->last_meal);
-		usleep((arg->time_to_die - time + philo->last_meal) * 1000);
+		pthread_mutex_lock(arg->global_access);
+		lastMeal = philo->last_meal;
+		pthread_mutex_unlock(arg->global_access);
+		usleep((arg->time_to_die - time + lastMeal) * 1000);
 		time = ft_get_time();
-		pthread_mutex_lock(arg->display);
-		if (time - philo->last_meal >= arg->time_to_die)
+		if (time - lastMeal >= arg->time_to_die)
 		{
+			pthread_mutex_lock(arg->global_access);
 			philo->state = dead;
-			ft_display_routine(dead, philo->thread_id, time);
+			pthread_mutex_unlock(arg->global_access);
+			ft_display_routine(dead, philo->thread_id + 1, time);
 			arg->dead++;
+			break;
 		}
+		pthread_mutex_lock(arg->display);
 	}
 	pthread_mutex_unlock(arg->display);
+	// write(1, "DEAD\n", 5);
 	return (NULL);
 }

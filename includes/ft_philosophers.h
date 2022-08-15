@@ -62,6 +62,8 @@ typedef struct s_philo
 
 typedef struct s_args
 {
+	pthread_mutex_t *global_access;
+	pthread_mutex_t	*display;
 	unsigned long	nb_philo;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;
@@ -69,7 +71,6 @@ typedef struct s_args
 	unsigned long	max_meals;
 	unsigned long	satisfied;
 	int				dead;
-	pthread_mutex_t	*display;
 }			t_args;
 
 void			ft_display_routine(t_state state, unsigned long thread_id, \

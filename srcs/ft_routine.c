@@ -14,50 +14,52 @@
 
 void	ft_eat(t_philo *philo)
 {
-	t_args			*args;
 	unsigned long	time;
+	t_args			*args;
 
 	args = ft_get_args();
-	philo->state = eating;
-	philo->meals++;
 	time = ft_get_time();
+	pthread_mutex_lock(args->global_access);
+	philo->meals++;
 	philo->last_meal = time;
-	pthread_mutex_lock(args->display);
+	philo->state = eating;
+	pthread_mutex_unlock(args->global_access);
 	ft_display_routine(eating, philo->thread_id + 1, time);
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
-	pthread_mutex_unlock(args->display);
 	usleep(args->time_to_eat * 1000);
 }
 
 void	ft_take_fork(t_philo *philo)
 {
-	t_args			*args;
 	unsigned long	time;
+	t_args			*args;
 
 	args = ft_get_args();
 	if (philo->thread_id % 2)
-		usleep(700);
-	philo->state = taking_fork;
-	pthread_mutex_lock(philo->left_fork);
+		usleep(500);
 	time = ft_get_time();
+	pthread_mutex_lock(philo->right_fork);
 	ft_display_routine(taking_fork, philo->thread_id + 1, time);
+	pthread_mutex_lock(args->global_access);
+	philo->state = taking_fork;
+	pthread_mutex_unlock(args->global_access);
 	if (philo->left_fork == philo->right_fork)
 	{
 		usleep(args->time_to_die * 1000 + 500);
 		return ;
 	}
-	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(philo->left_fork);
 	time = ft_get_time();
 	ft_display_routine(taking_fork, philo->thread_id + 1, time);
 }
 
 void	ft_drop_fork(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 	if (philo->left_fork == philo->right_fork)
 		return ;
-	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 void	ft_sleep(t_philo *philo)
@@ -66,11 +68,11 @@ void	ft_sleep(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->display);
 	time = ft_get_time();
-	philo->state = sleeping;
 	ft_display_routine(sleeping, philo->thread_id + 1, time);
-	pthread_mutex_unlock(args->display);
+	pthread_mutex_lock(args->global_access);
+	philo->state = sleeping;
+	pthread_mutex_unlock(args->global_access);
 	usleep(args->time_to_sleep * 1000);
 }
 
@@ -80,9 +82,9 @@ void	ft_think(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->display);
 	time = ft_get_time();
 	ft_display_routine(thinking, philo->thread_id + 1, time);
+	pthread_mutex_lock(args->global_access);
 	philo->state = thinking;
-	pthread_mutex_unlock(args->display);
+	pthread_mutex_unlock(args->global_access);
 }

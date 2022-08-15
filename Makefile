@@ -15,8 +15,8 @@ CC			= gcc
 SRC_DIR 	= srcs/
 SRCS 		= $(addprefix $(SRC_DIR), $(SRC_FILE))
 SRC_FILE 	= ft_display.c ft_dead.c ft_fork.c ft_args.c \
-				ft_philosophers.c ft_routine.c ft_run.c \
-				ft_time.c ft_utils.c
+			ft_philosophers.c ft_routine.c ft_run.c \
+			ft_time.c ft_utils.c
 
 #------------------------------------#
 #               OBJECTS              #

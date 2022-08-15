@@ -41,26 +41,26 @@ void	ft_display_message(int code)
 void	ft_display_error(t_input_error error)
 {
 	if (error == argc_incorrect)
-		ft_putstr_fd("Usage : \
+		printf("Usage : \
 ./philo NB_OF_PHILO TIME_TO_DIE TIME_TO_EAT TIME_TO_SLEEP \
-[NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT]\n", _STD_ERR);
+[NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT]\n");
 	else if (error == empty_arg)
-		ft_putstr_fd("Erreur : Argument vide non permis.\n", _STD_ERR);
+		printf("\033[31mErreur : Argument vide non permis.\e[0m\n");
 	else if (error == non_numerical)
-		ft_putstr_fd("Erreur : \
-Seuls les entiers positifs sont acceptes. Pas de signe non plus.\n", _STD_ERR);
+		printf("\033[31mErreur : \
+Seuls les entiers positifs sont acceptes. Pas de signe non plus.\e[0m\n");
 	else if (error == phil_too_long)
-		ft_putstr_fd("Erreur : Choissisez un nombre valide \
-de philosophes [0 - 999]\n", _STD_ERR);
+		printf("\033[31mErreur : Choissisez un nombre valide \
+de philosophes [0 - 999]\e[0m\n");
 	else if (error == meals_too_long)
-		ft_putstr_fd("Erreur : NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT \
-doit etre entre [0 - 99]\n", _STD_ERR);
+		printf("\033[31mErreur : NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT \
+doit etre entre [0 - 99]\e[0m\n");
 	else if (error == time_too_long)
-		ft_putstr_fd("Reessayez avec des durees plus courtes.\n", _STD_ERR);
+		printf("Reessayez avec des durees plus courtes.\e[0m\n");
 
 	else
-		ft_putstr_fd("Erreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
-doivent etre entre [0 - 9999]\n", _STD_ERR);
+		printf("\033[31mErreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
+doivent etre entre [0 - 9999]\e[0m\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -78,7 +78,7 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 	};
 
 	args = ft_get_args();
-	// pthread_mutex_lock(args->display);
+	pthread_mutex_lock(args->display);
 	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
 		return ;
 	if (time > 99999999)
@@ -87,6 +87,6 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
 		return ;
 	}
-	// pthread_mutex_unlock(args->display);
 	printf(str[stt], time, tid);
+	pthread_mutex_unlock(args->display);
 }

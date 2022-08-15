@@ -18,7 +18,8 @@ static void	start_routine(t_philo *philo)
 	t_args		*arg;
 
 	arg = ft_get_args();
-	pthread_create(&tid, NULL, &ft_dead_timer, philo);
+	if (pthread_create(&tid, NULL, &ft_dead_timer, philo))
+		return ;
 	pthread_detach(tid);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
