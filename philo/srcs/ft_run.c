@@ -23,22 +23,18 @@ static void	start_routine(t_philo *phi)
 		return ;
 	pthread_create(&tid, NULL, &ft_dead_timer, phi);
 	pthread_detach(tid);
-	pthread_mutex_lock(arg->display);
+	pthread_mutex_lock(arg->check_arg);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
-		pthread_mutex_unlock(arg->display);
+		pthread_mutex_unlock(arg->check_arg);
 		ft_take_fork(phi);
 		ft_eat(phi);
 		ft_drop_fork(phi);
-		pthread_mutex_lock(arg->display);
-		if (arg->dead)
-			break ;
-		pthread_mutex_unlock(arg->display);
 		ft_sleep(phi);
 		ft_think(phi);
-		pthread_mutex_lock(arg->display);
+		pthread_mutex_lock(arg->check_arg);
 	}
-	pthread_mutex_unlock(arg->display);
+	pthread_mutex_unlock(arg->check_arg);
 }
 
 static void	init_philo(t_philo *philo)
@@ -102,6 +98,11 @@ void	ft_play_rules(void)
 
 	args = ft_get_args();
 	i = args->nb_philo;
+	args->check_arg = malloc(sizeof(pthread_mutex_t));
+	if (!args->check_arg)
+		return ;
+	if (pthread_mutex_init(args->check_arg, NULL))
+		return ;
 	philos = malloc(sizeof(t_philo) * args->nb_philo);
 	if (!philos)
 		return ;

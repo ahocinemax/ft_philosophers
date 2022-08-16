@@ -53,8 +53,12 @@ void	ft_destroy_args(void)
 	t_args	*args;
 
 	args = ft_get_args();
+	pthread_mutex_lock(args->check_arg);
+	pthread_mutex_unlock(args->check_arg);
+	pthread_mutex_destroy(args->check_arg);
 	pthread_mutex_lock(args->display);
 	pthread_mutex_unlock(args->display);
 	pthread_mutex_destroy(args->display);
 	free(args->display);
+	free(args->check_arg);
 }

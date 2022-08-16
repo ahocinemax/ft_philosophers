@@ -78,17 +78,14 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 	};
 
 	args = ft_get_args();
-	pthread_mutex_lock(args->display);
+	pthread_mutex_lock(args->check_arg);
 	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
-	{
 		(void)0;
-	}
-	else if (time > 99999999)
-	{
-		args->dead++;
-		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
-	}
 	else
+	{
+		pthread_mutex_lock(args->display);
 		printf(str[stt], time, tid);
-	pthread_mutex_unlock(args->display);
+		pthread_mutex_unlock(args->display);
+	}
+	pthread_mutex_unlock(args->check_arg);
 }

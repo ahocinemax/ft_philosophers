@@ -41,9 +41,9 @@ static void	ft_main_loop(void *ptr)
 	{
 		philo->state = dead;
 		ft_display_routine(dead, philo->thread_id + 1, time);
-		pthread_mutex_lock(args->display);
+		pthread_mutex_lock(args->check_arg);
 		args->dead++;
-		pthread_mutex_unlock(args->display);
+		pthread_mutex_unlock(args->check_arg);
 	}
 	pthread_mutex_unlock(philo->state_access);
 }
@@ -53,13 +53,13 @@ void	*ft_dead_timer(void *ptr)
 	t_args			*arg;
 
 	arg = ft_get_args();
-	pthread_mutex_lock(arg->display);
+	pthread_mutex_lock(arg->check_arg);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied != arg->nb_philo))
 	{
-		pthread_mutex_unlock(arg->display);
+		pthread_mutex_unlock(arg->check_arg);
 		ft_main_loop(ptr);
-		pthread_mutex_lock(arg->display);
+		pthread_mutex_lock(arg->check_arg);
 	}
-	pthread_mutex_unlock(arg->display);
+	pthread_mutex_unlock(arg->check_arg);
 	return (NULL);
 }

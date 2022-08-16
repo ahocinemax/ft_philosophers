@@ -64,6 +64,7 @@ typedef struct s_philo
 typedef struct s_args
 {
 	pthread_mutex_t	*display;
+	pthread_mutex_t	*check_arg;
 	unsigned long	nb_philo;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;

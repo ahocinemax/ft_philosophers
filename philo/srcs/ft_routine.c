@@ -25,10 +25,10 @@ void	ft_eat(t_philo *philo)
 	philo->state = eating;
 	pthread_mutex_unlock(philo->state_access);
 	ft_display_routine(eating, philo->thread_id + 1, time);
-	pthread_mutex_lock(args->display);
+	pthread_mutex_lock(args->check_arg);
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
-	pthread_mutex_unlock(args->display);
+	pthread_mutex_unlock(args->check_arg);
 	if (args->time_to_die < args->time_to_eat)
 		usleep(args->time_to_die * 1000);
 	else
