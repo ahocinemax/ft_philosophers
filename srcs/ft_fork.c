@@ -19,7 +19,7 @@ pthread_mutex_t	**ft_get_forks(void)
 	return (&forks);
 }
 
-void	ft_init_forks(void)
+int	ft_init_forks(void)
 {
 	pthread_mutex_t	**forks;
 	t_args			*args;
@@ -32,12 +32,20 @@ void	ft_init_forks(void)
 	if (!*forks)
 	{
 		ft_destroy_args();
-		exit(EXIT_FAILURE);
+		write(1, "FORKS KO\n", 9);
+		return (0);
 	}
 	i = -1;
 	while (++i < args->nb_philo)
+	{
 		if (pthread_mutex_init(&(*forks)[i], NULL))
-			return (ft_destroy_forks());
+		{
+			ft_destroy_forks();
+			return (0);
+		}
+	}
+	write(1, "FORKS OK\n", 9);
+	return (1);
 }
 
 void	ft_destroy_forks(void)

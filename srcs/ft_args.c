@@ -14,12 +14,12 @@
 
 t_args	*ft_get_args(void)
 {
-	static t_args	arg;
+	static t_args	args;
 
-	return (&arg);
+	return (&args);
 }
 
-void	ft_init_args(int argc, char *argv[])
+int	ft_init_args(int argc, char *argv[])
 {
 	t_args	*args;
 
@@ -28,35 +28,33 @@ void	ft_init_args(int argc, char *argv[])
 	args->satisfied = 0;
 	args->nb_philo = ft_atoi(argv[1]);
 	if (!args->nb_philo)
-		ft_display_message(NO_PHILO);
+		return (ft_display_message(NO_PHILO));
 	args->time_to_die = ft_atoi(argv[2]);
 	if (!args->time_to_die)
-		ft_display_message(NO_TIME);
+		return (ft_display_message(NO_TIME));
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->max_meals = 0;
 	if (argc == 6)
 	{
-		if (ft_atoi(argv[5]) )
+		if (ft_atoi(argv[5]))
 			args->max_meals = ft_atoi(argv[5]);
 		else
-			ft_display_message(NO_MEAL);
+			return (ft_display_message(NO_MEAL));
 	}
 	args->display = malloc(sizeof(pthread_mutex_t));
-	args->global_access = malloc(sizeof(pthread_mutex_t));
 	if (!args->display)
-		exit(EXIT_FAILURE);
-	if (pthread_mutex_init(args->global_access, NULL))
-		return ;
+		return (0);
 	if (pthread_mutex_init(args->display, NULL))
-		return ;
+		return (0);
+	return (1);
 }
 
 void	ft_destroy_args(void)
 {
-	t_args	*arg;
+	t_args	*args;
 
-	arg = ft_get_args();
-	pthread_mutex_destroy(arg->display);
-	free(arg->display);
+	args = ft_get_args();
+	pthread_mutex_destroy(args->display);
+	free(args->display);
 }

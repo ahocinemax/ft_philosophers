@@ -18,8 +18,12 @@ static void	start_routine(t_philo *philo)
 	t_args		*arg;
 
 	arg = ft_get_args();
-	if (pthread_create(&tid, NULL, &ft_dead_timer, philo))
+	philo->global_access = malloc(sizeof(pthread_mutex_t));
+	if (!philo->global_access)
 		return ;
+	if (pthread_mutex_init(philo->global_access, NULL))
+		return ;
+	pthread_create(&tid, NULL, &ft_dead_timer, philo);
 	pthread_detach(tid);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
@@ -41,7 +45,6 @@ static void	init_philo(t_philo *philo)
 	philo->last_meal = 0;
 	philo->meals = 0;
 	forks = ft_get_forks();
-	// printf("Philo %d initialized.\n", philo->thread_id);
 	philo->right_fork = &(*forks)[philo->thread_id];
 	if (!philo->thread_id)
 		philo->left_fork = &(*forks)[args->nb_philo - 1];

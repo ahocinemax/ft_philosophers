@@ -12,13 +12,13 @@
 
 #include "../includes/ft_philosophers.h"
 
-static void	ft_check_param(int argc, char **argv)
+static int	ft_check_param(int argc, char **argv)
 {
 	int	i;
 	int	j;
 
 	if (argc != 5 && argc != 6)
-		ft_display_error(argc_incorrect);
+		return (ft_display_error(argc_incorrect));
 	i = 1;
 	while (i != argc)
 	{
@@ -28,24 +28,28 @@ static void	ft_check_param(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
-				ft_display_error(non_numerical);
+				return (ft_display_error(non_numerical));
 			if (i == 1 && j > 2)
-				ft_display_error(phil_too_long);
+				return (ft_display_error(phil_too_long));
 			if (i == 5 && j > 2)
-				ft_display_error(meals_too_long);
+				return (ft_display_error(meals_too_long));
 			if (j > 3)
-				ft_display_error(time_too_long);
+				return (ft_display_error(time_too_long));
 			j++;
 		}
 		i++;
 	}
+	return (1);
 }
 
 int	main(int argc, char *argv[])
 {
-	ft_check_param(argc, argv);
-	ft_init_args(argc, argv);
-	ft_init_forks();
+	if (!ft_check_param(argc, argv))
+		return (1);
+	if (!ft_init_args(argc, argv))
+		return (1);
+	if (!ft_init_forks())
+		return (1);
 	ft_init_time_base();
 	ft_play_rules();
 	ft_destroy_forks();

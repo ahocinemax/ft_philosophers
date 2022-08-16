@@ -53,6 +53,7 @@ typedef struct s_philo
 {
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*global_access;
 	unsigned long	last_meal;
 	int				thread_id;
 	t_state			state;
@@ -62,7 +63,6 @@ typedef struct s_philo
 
 typedef struct s_args
 {
-	pthread_mutex_t *global_access;
 	pthread_mutex_t	*display;
 	unsigned long	nb_philo;
 	unsigned long	time_to_die;
@@ -75,10 +75,10 @@ typedef struct s_args
 
 void			ft_display_routine(t_state state, unsigned long thread_id, \
 					unsigned long time);
-void			ft_display_error(t_input_error error);
-void			ft_init_args(int argc, char **argv);
+int				ft_display_error(t_input_error error);
+int				ft_init_args(int argc, char **argv);
 void			ft_putstr_fd(char *s, int fd);
-void			ft_display_message(int code);
+int				ft_display_message(int code);
 void			ft_take_fork(t_philo *philo);
 void			ft_drop_fork(t_philo *philo);
 void			*ft_dead_timer(void *ptr);
@@ -90,7 +90,7 @@ void			ft_eat(t_philo *philo);
 void			ft_destroy_forks(void);
 void			ft_destroy_args(void);
 pthread_mutex_t	**ft_get_forks(void);
-void			ft_init_forks(void);
+int				ft_init_forks(void);
 void			ft_play_rules(void);
 t_args			*ft_get_args(void);
 unsigned long	ft_get_time(void);

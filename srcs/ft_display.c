@@ -12,7 +12,7 @@
 
 #include "../includes/ft_philosophers.h"
 
-void	ft_display_message(int code)
+int	ft_display_message(int code)
 {
 	if (code == NO_MEAL)
 		ft_putstr_fd("Pas de repas pour cette fois. Repassez plus tard.\n", \
@@ -24,10 +24,10 @@ void	ft_display_message(int code)
 		_STD_ERR);
 	else if (code == NO_TIME)
 		ft_putstr_fd("Meme pas commence que c'est deja fini... Il nous faut\
- plus de temps !\n",	_STD_ERR);
+plus de temps !\n", _STD_ERR);
 	if (code == NO_MEAL || code == NO_PHILO || code == THREAD_ERR || \
 		code == NO_TIME)
-		exit(EXIT_FAILURE);
+		return (0);
 	if (code == HEADER)
 		ft_putstr_fd("\
 ._____________________________________.\n\
@@ -36,9 +36,10 @@ void	ft_display_message(int code)
 	else if (code == FOOTER)
 		ft_putstr_fd("\
 |_____________________________________|\n", _STD_OUT);
+	return (1);
 }
 
-void	ft_display_error(t_input_error error)
+int	ft_display_error(t_input_error error)
 {
 	if (error == argc_incorrect)
 		printf("Usage : \
@@ -57,11 +58,10 @@ de philosophes [0 - 999]\e[0m\n");
 doit etre entre [0 - 99]\e[0m\n");
 	else if (error == time_too_long)
 		printf("Reessayez avec des durees plus courtes.\e[0m\n");
-
 	else
 		printf("\033[31mErreur : TIME_TO_DIE, TIME_TO_EAT, TIME_TO_SLEEP \
 doivent etre entre [0 - 9999]\e[0m\n");
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
@@ -80,13 +80,15 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 	args = ft_get_args();
 	pthread_mutex_lock(args->display);
 	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
-		return ;
-	if (time > 99999999)
+	{
+		;
+	}
+	else if (time > 99999999)
 	{
 		args->dead++;
 		ft_putstr_fd("| End of simulation. Time is over. |\n", _STD_OUT);
-		return ;
 	}
-	printf(str[stt], time, tid);
+	else
+		printf(str[stt], time, tid);
 	pthread_mutex_unlock(args->display);
 }
