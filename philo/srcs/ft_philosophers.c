@@ -22,10 +22,10 @@ static int	ft_check_param(int argc, char **argv)
 	i = 1;
 	while (i != argc)
 	{
-		j = 0;
+		j = -1;
 		if (i != 5 && !argv[i][0])
 			ft_display_error(empty_arg);
-		while (argv[i][j])
+		while (argv[i][++j])
 		{
 			if (!ft_isdigit(argv[i][j]))
 				return (ft_display_error(non_numerical));
@@ -35,7 +35,6 @@ static int	ft_check_param(int argc, char **argv)
 				return (ft_display_error(meals_too_long));
 			if (j > 3)
 				return (ft_display_error(time_too_long));
-			j++;
 		}
 		i++;
 	}

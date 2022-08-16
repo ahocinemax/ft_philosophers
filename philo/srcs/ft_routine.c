@@ -25,8 +25,10 @@ void	ft_eat(t_philo *philo)
 	philo->state = eating;
 	pthread_mutex_unlock(philo->global_access);
 	ft_display_routine(eating, philo->thread_id + 1, time);
+	pthread_mutex_lock(args->display);
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
+	pthread_mutex_unlock(args->display);
 	usleep(args->time_to_eat * 1000);
 }
 
@@ -38,20 +40,17 @@ void	ft_take_fork(t_philo *philo)
 	args = ft_get_args();
 	if (philo->thread_id % 2)
 		usleep(400);
-	pthread_mutex_lock(philo->global_access);
-	philo->state = taking_fork;
-	pthread_mutex_unlock(philo->global_access);
 	if (philo->thread_id % 2)
 		pthread_mutex_lock(philo->right_fork);
 	else
 		pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(philo->global_access);
+	philo->state = taking_fork;
+	pthread_mutex_unlock(philo->global_access);
 	time = ft_get_time();
 	ft_display_routine(taking_fork, philo->thread_id + 1, time);
 	if (philo->left_fork == philo->right_fork)
-	{
-		usleep(args->time_to_die * 1000 + 500);
-		return ;
-	}
+		return ((void)usleep(args->time_to_die * 1000 + 500));
 	if (philo->thread_id % 2)
 		pthread_mutex_lock(philo->left_fork);
 	else

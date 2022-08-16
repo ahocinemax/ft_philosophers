@@ -81,7 +81,7 @@ void	ft_display_routine(t_state stt, unsigned long tid, unsigned long time)
 	pthread_mutex_lock(args->display);
 	if (args->dead || (args->max_meals && args->satisfied >= args->nb_philo))
 	{
-		;
+		(void)0;
 	}
 	else if (time > 99999999)
 	{

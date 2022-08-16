@@ -77,6 +77,7 @@ void			ft_display_routine(t_state state, unsigned long thread_id, \
 					unsigned long time);
 int				ft_display_error(t_input_error error);
 int				ft_init_args(int argc, char **argv);
+void			ft_destroy_philo(t_philo *philo);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_display_message(int code);
 void			ft_take_fork(t_philo *philo);

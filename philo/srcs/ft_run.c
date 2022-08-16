@@ -12,28 +12,26 @@
 
 #include "../includes/ft_philosophers.h"
 
-static void	start_routine(t_philo *philo)
+static void	start_routine(t_philo *phi)
 {
 	pthread_t	tid;
 	t_args		*arg;
 
 	arg = ft_get_args();
-	philo->global_access = malloc(sizeof(pthread_mutex_t));
-	if (!philo->global_access)
+	phi->global_access = malloc(sizeof(pthread_mutex_t));
+	if (!phi->global_access || pthread_mutex_init(phi->global_access, NULL))
 		return ;
-	if (pthread_mutex_init(philo->global_access, NULL))
-		return ;
-	pthread_create(&tid, NULL, &ft_dead_timer, philo);
+	pthread_create(&tid, NULL, &ft_dead_timer, phi);
 	pthread_detach(tid);
 	pthread_mutex_lock(arg->display);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
 		pthread_mutex_unlock(arg->display);
-		ft_take_fork(philo);
-		ft_eat(philo);
-		ft_drop_fork(philo);
-		ft_sleep(philo);
-		ft_think(philo);
+		ft_take_fork(phi);
+		ft_eat(phi);
+		ft_drop_fork(phi);
+		ft_sleep(phi);
+		ft_think(phi);
 		pthread_mutex_lock(arg->display);
 	}
 	pthread_mutex_unlock(arg->display);
@@ -94,15 +92,20 @@ static void	ft_play(t_philo *philos)
 
 void	ft_play_rules(void)
 {
-	t_philo	*philos;
-	t_args	*args;
+	unsigned long	i;
+	t_philo			*philos;
+	t_args			*args;
 
 	args = ft_get_args();
+	i = args->nb_philo;
 	philos = malloc(sizeof(t_philo) * args->nb_philo);
 	if (!philos)
 		return ;
 	ft_display_message(HEADER);
 	ft_play(philos);
+	while (--i)
+		ft_destroy_philo(&philos[i]);
+	ft_destroy_philo(&philos[i]);
 	free(philos);
 	ft_display_message(FOOTER);
 }

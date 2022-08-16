@@ -43,9 +43,7 @@ int	ft_init_args(int argc, char *argv[])
 			return (ft_display_message(NO_MEAL));
 	}
 	args->display = malloc(sizeof(pthread_mutex_t));
-	if (!args->display)
-		return (0);
-	if (pthread_mutex_init(args->display, NULL))
+	if (!args->display || pthread_mutex_init(args->display, NULL))
 		return (0);
 	return (1);
 }
@@ -55,6 +53,8 @@ void	ft_destroy_args(void)
 	t_args	*args;
 
 	args = ft_get_args();
+	pthread_mutex_lock(args->display);
+	pthread_mutex_unlock(args->display);
 	pthread_mutex_destroy(args->display);
 	free(args->display);
 }
