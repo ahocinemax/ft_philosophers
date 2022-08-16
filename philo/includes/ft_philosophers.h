@@ -53,7 +53,7 @@ typedef struct s_philo
 {
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*global_access;
+	pthread_mutex_t	*state_access;
 	unsigned long	last_meal;
 	int				thread_id;
 	t_state			state;

@@ -19,11 +19,11 @@ void	ft_eat(t_philo *philo)
 
 	args = ft_get_args();
 	time = ft_get_time();
-	pthread_mutex_lock(philo->global_access);
+	pthread_mutex_lock(philo->state_access);
 	philo->meals++;
 	philo->last_meal = time;
 	philo->state = eating;
-	pthread_mutex_unlock(philo->global_access);
+	pthread_mutex_unlock(philo->state_access);
 	ft_display_routine(eating, philo->thread_id + 1, time);
 	pthread_mutex_lock(args->display);
 	if (philo->meals == args->max_meals)
@@ -47,9 +47,9 @@ void	ft_take_fork(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 	else
 		pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(philo->global_access);
+	pthread_mutex_lock(philo->state_access);
 	philo->state = taking_fork;
-	pthread_mutex_unlock(philo->global_access);
+	pthread_mutex_unlock(philo->state_access);
 	time = ft_get_time();
 	ft_display_routine(taking_fork, philo->thread_id + 1, time);
 	if (philo->left_fork == philo->right_fork)
@@ -78,9 +78,9 @@ void	ft_sleep(t_philo *philo)
 	args = ft_get_args();
 	time = ft_get_time();
 	ft_display_routine(sleeping, philo->thread_id + 1, time);
-	pthread_mutex_lock(philo->global_access);
+	pthread_mutex_lock(philo->state_access);
 	philo->state = sleeping;
-	pthread_mutex_unlock(philo->global_access);
+	pthread_mutex_unlock(philo->state_access);
 	if (args->time_to_die - args->time_to_eat > args->time_to_sleep)
 		usleep(args->time_to_sleep * 1000);
 	else
@@ -93,7 +93,7 @@ void	ft_think(t_philo *philo)
 
 	time = ft_get_time();
 	ft_display_routine(thinking, philo->thread_id + 1, time);
-	pthread_mutex_lock(philo->global_access);
+	pthread_mutex_lock(philo->state_access);
 	philo->state = thinking;
-	pthread_mutex_unlock(philo->global_access);
+	pthread_mutex_unlock(philo->state_access);
 }

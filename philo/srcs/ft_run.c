@@ -18,8 +18,8 @@ static void	start_routine(t_philo *phi)
 	t_args		*arg;
 
 	arg = ft_get_args();
-	phi->global_access = malloc(sizeof(pthread_mutex_t));
-	if (!phi->global_access || pthread_mutex_init(phi->global_access, NULL))
+	phi->state_access = malloc(sizeof(pthread_mutex_t));
+	if (!phi->state_access || pthread_mutex_init(phi->state_access, NULL))
 		return ;
 	pthread_create(&tid, NULL, &ft_dead_timer, phi);
 	pthread_detach(tid);
