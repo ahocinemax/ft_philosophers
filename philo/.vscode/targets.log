@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 16 20:16:03 2022
+# Make data base, printed on Tue Aug 16 21:31:48 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/mnt/nfs/homes/ahocine/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
-OLDPWD = /mnt/nfs/homes/ahocine
+OLDPWD = /mnt/nfs/homes/ahocine/Desktop/42/common_core/8.ft_philosophers
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -99,7 +99,7 @@ MAKEFILE_LIST := Makefile
 # environment
 ZSH = /mnt/nfs/homes/ahocine/.oh-my-zsh
 # environment
-VSCODE_PID = 2339107
+VSCODE_PID = 2354778
 # environment
 KRB5CCNAME = FILE:/tmp/krb5cc_40180_byywe3
 # environment
@@ -247,7 +247,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 GDMSESSION = ubuntu
 # variable set hash-table stats:
-# Load=118/1024=12%, Rehash=0, Collisions=16/167=10%
+# Load=118/1024=12%, Rehash=0, Collisions=15/159=9%
 
 # Pattern-specific Variable Values
 
@@ -255,11 +255,11 @@ GDMSESSION = ubuntu
 
 # Directories
 
-# . (device 57, inode 82714259): 6 files, no impossibilities.
+# . (device 57, inode 82714259): 8 files, no impossibilities.
 # includes (device 57, inode 76775651): 3 files, no impossibilities so far.
-# srcs (device 57, inode 76775652): 3 files, no impossibilities so far.
+# srcs (device 57, inode 76775652): 11 files, no impossibilities so far.
 
-# 12 files, no impossibilities in 3 directories.
+# 22 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -267,15 +267,20 @@ obj/%.o: srcs/%.c includes/ft_philosophers.h
 #  recipe to execute (from 'Makefile', line 52):
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
+ 
 
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
-# Not a target:
-obj/ft_run.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/ft_run.o: srcs/ft_run.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_run'
+#  Last modified 2022-08-16 21:21:25.430792374
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 # Not a target:
 Makefile:
@@ -285,10 +290,42 @@ Makefile:
 #  Successfully updated.
 
 # Not a target:
-obj/ft_fork.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+srcs/ft_run.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:30:17.085664405
+#  File has been updated.
+#  Successfully updated.
+
+obj/ft_fork.o: srcs/ft_fork.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_fork'
+#  Last modified 2022-08-16 21:21:25.349791877
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
+
+# Not a target:
+srcs/ft_utils.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:07:11.373128068
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/ft_routine.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:28:21.99794141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/ft_time.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 00:24:15.313298201
+#  File has been updated.
+#  Successfully updated.
 
 clean:
 #  Phony target (prerequisite of .PHONY).
@@ -299,11 +336,15 @@ clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
 	@rm -rf $(OBJ_DIR)
 
-# Not a target:
-obj/ft_dead.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/ft_dead.o: srcs/ft_dead.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_dead'
+#  Last modified 2022-08-16 21:21:25.329791754
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -311,17 +352,20 @@ re: fclean all
 #  File does not exist.
 #  File has not been updated.
 
-# Not a target:
-obj/ft_time.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
- 
+obj/ft_time.o: srcs/ft_time.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_time'
+#  Last modified 2022-08-16 21:21:25.44979249
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 # Not a target:
 includes/ft_philosophers.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-16 20:10:39.936407614
+#  Last modified 2022-08-16 20:19:24.915623982
 #  File has been updated.
 #  Successfully updated.
 
@@ -331,20 +375,29 @@ includes/ft_philosophers.h:
 #  Modification time never checked.
 #  File has not been updated.
 
+obj/ft_args.o: srcs/ft_args.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_args'
+#  Last modified 2022-08-16 21:21:25.368791993
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
+
 # Not a target:
-obj/ft_args.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+srcs/ft_args.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:20:07.399884268
+#  File has been updated.
+#  Successfully updated.
 
 all: philo
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
+#  Successfully updated.
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
@@ -356,68 +409,60 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo $(YELLOW)"- Project removed -"$(NONE)
 
-# Not a target:
-obj/ft_routine.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/ft_routine.o: srcs/ft_routine.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_routine'
+#  Last modified 2022-08-16 21:21:25.409792245
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 # Not a target:
 srcs/ft_display.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-16 20:07:11.365128018
+#  Last modified 2022-08-16 20:34:26.009228171
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-obj/ft_utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/ft_utils.o: srcs/ft_utils.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_utils'
+#  Last modified 2022-08-16 21:21:25.469792613
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 philo: obj/ft_display.o obj/ft_dead.o obj/ft_fork.o obj/ft_args.o obj/ft_philosophers.o obj/ft_routine.o obj/ft_run.o obj/ft_time.o obj/ft_utils.o
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Last modified 2022-08-16 21:21:25.489792736
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 46):
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
 	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
 	@$(CC) $(FLAGS) $(OBJS) $(INCLUDE) -I includes -o $(NAME)
 	@echo $(GREEN)"- Project compiled -"$(NONE)
 
-# Not a target:
-obj/ft_philosophers.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/ft_philosophers.o: srcs/ft_philosophers.c includes/ft_philosophers.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ft_philosophers'
+#  Last modified 2022-08-16 21:21:25.38779211
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
 
 obj/ft_display.o: srcs/ft_display.c includes/ft_philosophers.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'ft_display'
-#  File does not exist.
+#  Last modified 2022-08-16 21:21:25.308791625
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/ft_display.o
-# automatic
-# * := ft_display
-# automatic
-# < := srcs/ft_display.c
-# automatic
-# + := srcs/ft_display.c includes/ft_philosophers.h
-# automatic
-# % := 
-# automatic
-# ^ := srcs/ft_display.c includes/ft_philosophers.h
-# automatic
-# ? := srcs/ft_display.c includes/ft_philosophers.h
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/18=11%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 52):
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@ -I includes
@@ -427,20 +472,41 @@ obj/ft_display.o: srcs/ft_display.c includes/ft_philosophers.h
 #  Modification time never checked.
 #  File has not been updated.
 
+# Not a target:
+srcs/ft_dead.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:31:52.271262375
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/ft_philosophers.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 13:18:05.866566942
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/ft_fork.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 03:51:24.237122573
+#  File has been updated.
+#  Successfully updated.
+
 # files hash-table stats:
-# Load=20/1024=2%, Rehash=0, Collisions=0/53=0%
+# Load=28/1024=3%, Rehash=0, Collisions=0/101=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 32 / storage = 364 B / avg = 11 B
-# current buf: size = 8162 B / used = 364 B / count = 32 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 57 / storage = 665 B / avg = 11 B
+# current buf: size = 8162 B / used = 665 B / count = 57 / avg = 11 B
 
-# strcache performance: lookups = 59 / hit rate = 45%
+# strcache performance: lookups = 109 / hit rate = 47%
 # hash-table stats:
-# Load=32/8192=0%, Rehash=0, Collisions=0/59=0%
-# Finished Make data base on Tue Aug 16 20:16:03 2022
+# Load=57/8192=1%, Rehash=0, Collisions=0/109=0%
+# Finished Make data base on Tue Aug 16 21:31:48 2022
 
  

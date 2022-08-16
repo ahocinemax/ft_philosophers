@@ -74,6 +74,7 @@ static void	ft_play(t_philo *philos)
 	while (i < args->nb_philo)
 	{
 		philos[i].thread_id = i;
+		usleep(100);
 		if (pthread_create(&philos[i].tid, NULL, create_philo, &philos[i]))
 			break ;
 		i++;

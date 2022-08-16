@@ -41,8 +41,8 @@ void	ft_take_fork(t_philo *philo)
 	t_args			*args;
 
 	args = ft_get_args();
-	if (philo->thread_id % 2)
-		usleep(400);
+	if (philo->thread_id % 2 && !philo->meals)
+		usleep((args->nb_philo - philo->thread_id - 1) * 40);
 	if (philo->thread_id % 2)
 		pthread_mutex_lock(philo->right_fork);
 	else
@@ -90,10 +90,14 @@ void	ft_sleep(t_philo *philo)
 void	ft_think(t_philo *philo)
 {
 	unsigned long	time;
+	t_args			*args;
 
+	args = ft_get_args();
 	time = ft_get_time();
 	ft_display_routine(thinking, philo->thread_id + 1, time);
 	pthread_mutex_lock(philo->state_access);
 	philo->state = thinking;
 	pthread_mutex_unlock(philo->state_access);
+	if (args->nb_philo % 2)
+		usleep(args->time_to_eat);
 }
