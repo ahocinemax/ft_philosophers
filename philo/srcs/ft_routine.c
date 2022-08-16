@@ -29,7 +29,10 @@ void	ft_eat(t_philo *philo)
 	if (philo->meals == args->max_meals)
 		args->satisfied++;
 	pthread_mutex_unlock(args->display);
-	usleep(args->time_to_eat * 1000);
+	if (args->time_to_die < args->time_to_eat)
+		usleep(args->time_to_die * 1000);
+	else
+		usleep(args->time_to_eat * 1000);
 }
 
 void	ft_take_fork(t_philo *philo)
@@ -78,7 +81,10 @@ void	ft_sleep(t_philo *philo)
 	pthread_mutex_lock(philo->global_access);
 	philo->state = sleeping;
 	pthread_mutex_unlock(philo->global_access);
-	usleep(args->time_to_sleep * 1000);
+	if (args->time_to_die - args->time_to_eat > args->time_to_sleep)
+		usleep(args->time_to_sleep * 1000);
+	else
+		usleep((args->time_to_die - args->time_to_eat) * 1000);
 }
 
 void	ft_think(t_philo *philo)

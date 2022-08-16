@@ -30,6 +30,10 @@ static void	start_routine(t_philo *phi)
 		ft_take_fork(phi);
 		ft_eat(phi);
 		ft_drop_fork(phi);
+		pthread_mutex_lock(arg->display);
+		if (arg->dead)
+			break ;
+		pthread_mutex_unlock(arg->display);
 		ft_sleep(phi);
 		ft_think(phi);
 		pthread_mutex_lock(arg->display);

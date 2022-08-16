@@ -1,0 +1,26 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/nfs/homes/ahocine/Desktop/42/common_core/8.ft_philosophers/philo'
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_display.c -o obj/ft_display.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_dead.c -o obj/ft_dead.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_fork.c -o obj/ft_fork.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_args.c -o obj/ft_args.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_philosophers.c -o obj/ft_philosophers.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_routine.c -o obj/ft_routine.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_run.c -o obj/ft_run.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_time.c -o obj/ft_time.o -I includes
+mkdir -p obj/
+gcc -Wall -Wextra -Werror -g3  -I includes/ -pthread -c srcs/ft_utils.c -o obj/ft_utils.o -I includes
+echo '\033[3m''\033[2;37m' "     - Making object files..." '\033[0m'
+echo '\033[3m''\033[2;37m' "     - Compiling philo..." '\033[0m'
+gcc -Wall -Wextra -Werror -g3  obj/ft_display.o obj/ft_dead.o obj/ft_fork.o obj/ft_args.o obj/ft_philosophers.o obj/ft_routine.o obj/ft_run.o obj/ft_time.o obj/ft_utils.o -I includes/ -pthread -I includes -o philo
+echo '\033[32m'"- Project compiled -"'\033[0m'
+make: Leaving directory '/mnt/nfs/homes/ahocine/Desktop/42/common_core/8.ft_philosophers/philo'
+ 
