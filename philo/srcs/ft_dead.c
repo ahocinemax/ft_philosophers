@@ -20,34 +20,44 @@ void	ft_destroy_philo(t_philo *philo)
 	free(philo->global_access);
 }
 
-void	*ft_dead_timer(void *ptr)
+static void	ft_main_loop(void *ptr)
 {
-	unsigned long	time;
+	unsigned int	time;
 	t_philo			*philo;
-	t_args			*arg;
+	t_args			*args;
 	unsigned long	last_meal_tmp;
 
+	args = ft_get_args();
 	philo = (t_philo *)ptr;
+	time = ft_get_time();
+	pthread_mutex_lock(philo->global_access);
+	last_meal_tmp = philo->last_meal;
+	pthread_mutex_unlock(philo->global_access);
+	usleep((args->time_to_die - time + last_meal_tmp) * 1000);
+	time = ft_get_time();
+	pthread_mutex_lock(philo->global_access);
+	last_meal_tmp = philo->last_meal;
+	if (time - last_meal_tmp >= args->time_to_die)
+	{
+		philo->state = dead;
+		ft_display_routine(dead, philo->thread_id + 1, time);
+		pthread_mutex_lock(args->display);
+		args->dead++;
+		pthread_mutex_unlock(args->display);
+	}
+	pthread_mutex_unlock(philo->global_access);
+}
+
+void	*ft_dead_timer(void *ptr)
+{
+	t_args			*arg;
+
 	arg = ft_get_args();
-	last_meal_tmp = 0;
 	pthread_mutex_lock(arg->display);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied != arg->nb_philo))
 	{
 		pthread_mutex_unlock(arg->display);
-		time = ft_get_time();
-		usleep((arg->time_to_die - time + last_meal_tmp) * 1000);
-		time = ft_get_time();
-		pthread_mutex_lock(philo->global_access);
-		last_meal_tmp = philo->last_meal;
-		if (time - last_meal_tmp >= arg->time_to_die)
-		{
-			philo->state = dead;
-			ft_display_routine(dead, philo->thread_id + 1, time);
-			pthread_mutex_lock(arg->display);
-			arg->dead++;
-			pthread_mutex_unlock(arg->display);
-		}
-		pthread_mutex_unlock(philo->global_access);
+		ft_main_loop(ptr);
 		pthread_mutex_lock(arg->display);
 	}
 	pthread_mutex_unlock(arg->display);
