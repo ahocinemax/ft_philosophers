@@ -25,14 +25,18 @@ static void	start_routine(t_philo *philo)
 		return ;
 	pthread_create(&tid, NULL, &ft_dead_timer, philo);
 	pthread_detach(tid);
+	pthread_mutex_lock(arg->display);
 	while (!arg->dead && (!arg->max_meals || arg->satisfied < arg->nb_philo))
 	{
+		pthread_mutex_unlock(arg->display);
 		ft_take_fork(philo);
 		ft_eat(philo);
 		ft_drop_fork(philo);
 		ft_sleep(philo);
 		ft_think(philo);
+		pthread_mutex_lock(arg->display);
 	}
+	pthread_mutex_unlock(arg->display);
 }
 
 static void	init_philo(t_philo *philo)

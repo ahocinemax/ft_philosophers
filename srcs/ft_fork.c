@@ -31,8 +31,6 @@ int	ft_init_forks(void)
 		* sizeof(pthread_mutex_t));
 	if (!*forks)
 	{
-		ft_destroy_args();
-		write(1, "FORKS KO\n", 9);
 		return (0);
 	}
 	i = -1;
@@ -44,7 +42,6 @@ int	ft_init_forks(void)
 			return (0);
 		}
 	}
-	write(1, "FORKS OK\n", 9);
 	return (1);
 }
 
